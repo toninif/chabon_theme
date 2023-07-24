@@ -1,0 +1,49 @@
+## theme_chabon
+
+## El template para los theme pueden encontrarlo aca: https://github.com/MatthewBJane/theme_park/blob/main/theme_template.R
+
+# CUSTOM FONT: 
+font_add("chabon_font", "~/AcronymSemiBoldItalic.otf")
+
+showtext_auto()
+
+# COLOR: 
+text_color_chabon    <- '#CD192D'
+panel_color_chabon   <- '#000001'
+border_color_chabon  <- '#CD192D'
+lighter_color_chabon <- '#FEFDFB'
+light_color_chabon   <- '#EAE8E6'
+medium_color_chabon  <- '#B2202D'
+dark_color_chabon    <- '#3A0306'
+
+
+# THEME: 
+theme_chabon <- function(chabon_font = FALSE){
+  font_family = ifelse(chabon_font,"chabon_font","Arial") # use this line if you have a custom font 
+  ggplot2::theme(
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        text = element_text(color = text_color_chabon, family = font_family),
+        title = element_text(size=15),
+        panel.background = element_rect(fill = panel_color_chabon),
+        panel.border = element_rect(fill = NA, color = border_color_chabon,linewidth=1.2),
+        axis.title = element_text(size=12),
+        axis.text = element_text(size=12),
+        axis.ticks = element_line(color = border_color_chabon,linewidth=1),
+        legend.background = element_rect(fill = panel_color_chabon, color = NA)
+       )
+}
+
+#SCALES: 
+scale_fill_chabon <- ggplot2::scale_fill_gradient(low = lighter_color_chabon, high = dark_color_chabon)
+scale_color_chabon <- ggplot2::scale_color_gradient(low = lighter_color_chabon, high = dark_color_chabon)
+
+
+`Eje X` = rnorm(50,0,1)
+`Eje Y` = rnorm(50,0,1)
+
+ggplot(data=NULL, aes(x = `Eje X`,y = `Eje Y`)) +
+  theme_chabon(chabon_font=TRUE) +
+  geom_smooth(method='lm',color=lighter_color_chabon, fill = light_color_chabon) +
+  geom_point(color = medium_color_chabon) +
+  ggtitle('AFTER CHABON THEME')
